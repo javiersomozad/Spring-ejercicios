@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+  http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<bean id="workplace" class="es.jsomoza.workplace.Workplace">
+  <property name="name" value="rincon del desarrollo" />
+  <property name="building">
+  
+    <bean class="es.jsomoza.workplace.Building">
+      <property name="name" value="Dennis Ritchie Memorial" />
+      <property name="address" value="Linus Torvalds avenue" />
+      <property name="city" value="San Francisco" />
+    </bean>
+  
+  </property>
+  <property name="department">
+    <bean class="es.jsomoza.workplace.Department">
+      <constructor-arg name="name" value="Nuevas tegnologias" />
+      <constructor-arg>
+      
+        <bean class="es.jsomoza.workplace.Employee">
+          <property name="name" value="Javier Somoza" />
+          <property name="laptop">
+          
+            <bean class="es.jsomoza.workplace.Laptop">
+              <constructor-arg index="0" value="LG Gram" />
+              <constructor-arg index="1" value="Ubuntu 16" />
+            </bean>
+          
+          </property>
+        </bean>
+      
+      </constructor-arg>
+    </bean>
+  </property>
+  <property name="employee">
+    <bean class="es.jsomoza.workplace.Employee">
+      <constructor-arg name="name" value="Javier Somoza (otra vez)" />
+        <constructor-arg>
+        
+          <bean class="es.jsomoza.workplace.Laptop">
+            <constructor-arg name="model"
+              value="Tablet Lenovo" />
+            <constructor-arg name="os" value="Android" />
+          </bean>
+      
+        </constructor-arg>
+      </bean>
+    </property>
+  </bean>
+  
+</beans>

@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="#{welcome}"></title>
+	<meta charset="UTF-8">
+</head>
+<body>
+<h1 th:text="#{invoices.form}">Form</h1>
+   <form action="#" th:action="@{/invoice}" th:object="${invoice}" method="post">
+  <div>
+  	<label th:text="#{invoice.customer}" th:for="customer">Customer</label>
+  </div>
+  <div>
+     <input type="text" th:field="*{customer}" />
+     <div th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}">Comment user Error</div>
+  </div>
+  <div>
+  	<label th:text="#{invoice.total}" for="total">Total</label>
+  </div>
+  <div>
+     <textarea th:field="*{total}" />
+     <div th:if="${#fields.hasErrors('total')}" th:errors="*{total}">Comment text Error</div>
+  </div>
+   <div>
+   
+        <p><input type="submit" th:value="#{invoices.submit}" /> </p>
+    </form>
+   	<button type="button" th:text="#{switch-en}" onclick="window.location.href='http://localhost:8080/?localeData=en'"></button>
+	<button type="button" th:text="#{switch-it}" onclick="window.location.href='http://localhost:8080/?localeData=it'"></button>
+	<button type="button" th:text="#{switch-es}" onclick="window.location.href='http://localhost:8080/?localeData=es'"></button>
+
+</body>
+</html>
