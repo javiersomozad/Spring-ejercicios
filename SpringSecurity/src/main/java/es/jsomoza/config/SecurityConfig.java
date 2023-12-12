@@ -33,32 +33,33 @@ public class SecurityConfig {
 	// Configuracion 2
 	@Bean
 	public SecurityFilterChain filterChain (HttpSecurity httpSecurity) throws Exception {
+		
 		return httpSecurity
-				.authorizeHttpRequests(auth -> {
-					auth.requestMatchers("/v1/index2").permitAll();
-					auth.anyRequest().authenticated();
-				})
-				.formLogin()
-					.successHandler(succesHandler())
-					.permitAll()
-				.and()
-				.sessionManagement()
-					.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-					.invalidSessionUrl("/login")
-					.maximumSessions(1)
-						.expiredUrl("/Login")
-						.sessionRegistry(sessionRegistry())
-					.and()
-					.sessionFixation()
-						.migrateSession()
-				.and()
-				.build();
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers("/v1/index2").permitAll();
+                    auth.requestMatchers("/v1/index3").hasRole("ADMIN");
+                    auth.anyRequest().authenticated();
+                })
+                .formLogin(login -> login
+                        .successHandler(succesHandler())
+                        .permitAll())
+                .sessionManagement(management -> management
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                        .invalidSessionUrl("/login")
+                        .maximumSessions(1)
+                        .expiredUrl("/Login")
+                        .sessionRegistry(sessionRegistry())
+                        .and()
+                        .sessionFixation()
+                        .migrateSession())
+        		.logout((logout) -> logout.permitAll())
+                .build();
 	}
 	
 	public AuthenticationSuccessHandler succesHandler() {
 		return((request, response, authentication) -> {
 			response.sendRedirect("/v1/sesion");
-		});
+	});
 	}
 	
 	@Bean
